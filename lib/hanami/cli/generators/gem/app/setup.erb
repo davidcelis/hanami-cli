@@ -14,7 +14,9 @@ bundle check || bundle install
 printf "\nRunning npm install...\n"
 npm install
 
+<%- if generate_db? -%>
 printf "\nPreparing the database...\n"
 hanami db prepare
 
+<%- end -%>
 printf "\nSetup completed successfully!\n"

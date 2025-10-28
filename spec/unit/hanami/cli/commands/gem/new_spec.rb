@@ -1142,6 +1142,30 @@ RSpec.describe Hanami::CLI::Commands::Gem::New do
         expect(fs.exist?("config/db/")).to be(false)
         expect(fs.read(".gitignore")).to_not include("db/*.sqlite")
         expect(fs.exist?("db/")).to be(false)
+
+        # bin/setup
+        bin_setup = <<~EXPECTED
+          #!/usr/bin/env bash
+          set -euo pipefail
+          IFS=$'\\n\\t'
+          set -vx
+
+          # This script is a way to set up and keep your development environment updated
+          # automatically. It is meant to be idempotent so that you can run it at any
+          # time to get the same result. Add any new necessary setup steps to this file
+          # as your application evolves.
+
+          printf "Running bundle install...\\n"
+          bundle check || bundle install
+
+          printf "\\nRunning npm install...\\n"
+          npm install
+
+          printf "\\nSetup completed successfully!\\n"
+        EXPECTED
+        expect(fs.read("bin/setup")).to eq(bin_setup)
+        expect(fs.executable?("bin/setup")).to be(true)
+        expect(output).to include("Created bin/setup")
       end
     end
   end
