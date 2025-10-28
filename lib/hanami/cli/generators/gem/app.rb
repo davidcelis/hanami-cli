@@ -46,6 +46,9 @@ module Hanami
             fs.create("bin/dev", file("dev"))
             fs.chmod("bin/dev", 0o755)
 
+            fs.create("bin/setup", file("setup"))
+            fs.chmod("bin/setup", 0o755)
+
             fs.create("config/app.rb", t("app.erb", context))
             fs.create("config/settings.rb", t("settings.erb", context))
             fs.create("config/routes.rb", t("routes.erb", context))

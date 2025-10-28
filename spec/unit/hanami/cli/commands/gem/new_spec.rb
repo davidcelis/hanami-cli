@@ -138,6 +138,7 @@ RSpec.describe Hanami::CLI::Commands::Gem::New do
 
         ## Getting Started
 
+        - Set the project up with `bin/setup`
         - Run the server with `bin/dev`
         - View the app at [http://localhost:2300](http://localhost:2300)
         - Run the tests with `bundle exec rake`
@@ -251,6 +252,33 @@ RSpec.describe Hanami::CLI::Commands::Gem::New do
       expect(fs.read("bin/dev")).to eq(bin_dev)
       expect(fs.executable?("bin/dev")).to be(true)
       expect(output).to include("Created bin/dev")
+
+      # bin/setup
+      bin_setup = <<~EXPECTED
+        #!/usr/bin/env bash
+        set -euo pipefail
+        IFS=$'\\n\\t'
+        set -vx
+
+        # This script is a way to set up and keep your development environment updated
+        # automatically. It is meant to be idempotent so that you can run it at any
+        # time to get the same result. Add any new necessary setup steps to this file
+        # as your application evolves.
+
+        printf "Running bundle install...\\n"
+        bundle check || bundle install
+
+        printf "\\nRunning npm install...\\n"
+        npm install
+
+        printf "\\nPreparing the database...\\n"
+        hanami db prepare
+
+        printf "\\nSetup completed successfully!\\n"
+      EXPECTED
+      expect(fs.read("bin/setup")).to eq(bin_setup)
+      expect(fs.executable?("bin/setup")).to be(true)
+      expect(output).to include("Created bin/setup")
 
       # config/app.rb
       hanami_app = <<~EXPECTED
@@ -623,6 +651,7 @@ RSpec.describe Hanami::CLI::Commands::Gem::New do
 
           ## Getting Started
 
+          - Set the project up with `bin/setup`
           - Run the server with `bin/dev`
           - View the app at [http://localhost:2300](http://localhost:2300)
           - Run the tests with `bundle exec rake`
@@ -736,6 +765,33 @@ RSpec.describe Hanami::CLI::Commands::Gem::New do
         expect(fs.read("bin/dev")).to eq(bin_dev)
         expect(fs.executable?("bin/dev")).to be(true)
         expect(output).to include("Created bin/dev")
+
+        # bin/setup
+        bin_setup = <<~EXPECTED
+          #!/usr/bin/env bash
+          set -euo pipefail
+          IFS=$'\\n\\t'
+          set -vx
+
+          # This script is a way to set up and keep your development environment updated
+          # automatically. It is meant to be idempotent so that you can run it at any
+          # time to get the same result. Add any new necessary setup steps to this file
+          # as your application evolves.
+
+          printf "Running bundle install...\\n"
+          bundle check || bundle install
+
+          printf "\\nRunning npm install...\\n"
+          npm install
+
+          printf "\\nPreparing the database...\\n"
+          hanami db prepare
+
+          printf "\\nSetup completed successfully!\\n"
+        EXPECTED
+        expect(fs.read("bin/setup")).to eq(bin_setup)
+        expect(fs.executable?("bin/setup")).to be(true)
+        expect(output).to include("Created bin/setup")
 
         # config/app.rb
         hanami_app = <<~EXPECTED
@@ -1205,6 +1261,7 @@ RSpec.describe Hanami::CLI::Commands::Gem::New do
 
         ## Getting Started
 
+        - Set the project up with `bin/setup`
         - Run the server with `bin/dev`
         - View the app at [http://localhost:2300](http://localhost:2300)
         - Run the tests with `bundle exec rake`
