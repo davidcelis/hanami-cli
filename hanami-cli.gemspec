@@ -5,8 +5,8 @@ require_relative "lib/hanami/cli/version"
 Gem::Specification.new do |spec|
   spec.name          = "hanami-cli"
   spec.version       = Hanami::CLI::VERSION
-  spec.authors       = ["Luca Guidi"]
-  spec.email         = ["me@lucaguidi.com"]
+  spec.authors       = ["Hanakai team"]
+  spec.email         = ["info@hanakai.org"]
 
   spec.summary       = "Hanami CLI"
   spec.description   = "Hanami command line"
